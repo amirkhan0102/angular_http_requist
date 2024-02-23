@@ -6,39 +6,35 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataServiceService {
-
-
-
-  private apiUrl = 'https://jsonplaceholder.typicode.com/posts'
-
+ 
   constructor(private http: HttpClient) { }
 
-
+  private url = 'https://jsonplaceholder.typicode.com/posts'
 
   getData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl)
+    return this.http.get<any>(this.url)
+  }
+
+createPost(postData: any): Observable<any> {
+    return this.http.post<any>(this.url, postData)
   }
 
 
-  createPost(postData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, postData)
-  }
+deletePost(id:number):Observable<any>{
+  const url=`${this.url}/${id}`;
+  return this.http.delete<any>(url);
+}
 
-
-
-  updatePost(postId: number, postData: any): Observable<any> {
   
-    const url =`${this.apiUrl}/ ${postId}`;
+  updatePost(id: number, postData: any): Observable<any> {
+  
+    const url =`${this.url}/ ${id}`;
     return this.http.put<any>(url, postData);
 
   }
 
 
-  deletePost(postId: number): Observable<any> {
-    const url = `${this.apiUrl} / ${postId}`;
-    return this.http.delete(url);
-  }
-
+ 
 
 
 
