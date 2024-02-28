@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CommonModule } from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ErrorInterceptor } from './error.interceptor';
 
 
 @NgModule({
@@ -19,9 +20,11 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     CommonModule,
     HttpClientModule,
-    
+
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

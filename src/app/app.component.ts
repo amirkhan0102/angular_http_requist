@@ -7,14 +7,25 @@ import { DataServiceService } from './data.service';
 })
 
 export class AppComponent implements OnInit {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   data: any;
   url: any;
   http: any;
+  errorMessage !: string;
 
   constructor(private dataService: DataServiceService) { }
 
   ngOnInit(): void {
-    this.getData()
+    this.dataService.getData().subscribe(
+      (result) => {
+        this.data=result;
+      },
+      (error) => {
+    this.errorMessage=error;
+      }
+    )
   }
 
   getData() {
@@ -22,18 +33,18 @@ export class AppComponent implements OnInit {
       this.data = Response;
       console.log(this.data);
     });
-    
+
   }
   createPost() {
     const newPost = {
       title: "yangi post",
       body: "Amriddin ",
       userId: 1,
-     };
-     this.dataService.createPost(newPost).subscribe((Response) => {
+    };
+    this.dataService.createPost(newPost).subscribe((Response) => {
       console.log("yangi post yaratildi", Response);
 
-     },error => {
+    }, error => {
       console.error("Xatolik bo'ldi", error);
 
     });
@@ -55,12 +66,12 @@ export class AppComponent implements OnInit {
 
   deletePost(postId: number) {
 
-    this.dataService. deletePost(postId).subscribe((Response) => {
+    this.dataService.deletePost(postId).subscribe((Response) => {
       console.log(" post o'chirildi", Response);
     },
-    error => {
-      console.error("Xatolik bo'ldi", error);
-    }
+      error => {
+        console.error("Xatolik bo'ldi", error);
+      }
     )
 
   }
