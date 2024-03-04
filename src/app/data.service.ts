@@ -9,47 +9,14 @@ export class DataServiceService {
 
   constructor(private http: HttpClient) { }
 
-  private url = 'https://jsonplaceholder.typicode.com/posts/1'
-
-  getData(): Observable<any> {
-    return this.http.get<any>(this.url)
-    .pipe(
-      catchError(this.handleError)
-    )
-  }
-
-  createPost(postData: any): Observable<any> {
-    return this.http.post<any>(this.url, postData)
+  regiter(username:string , password:string){
+    return this.http.post<any>('https://jsonplaceholder.typicode.com/users' ,{username , password});
   }
 
 
-  deletePost(id: number): Observable<any> {
-    const url = `${this.url}/${id}`;
-    return this.http.delete<any>(url);
+  login(username:string , password:string){
+     return this.http.get<any>('https://jsonplaceholder.typicode.com/users/?users?username=' + username + '&password='+ password);
   }
-
-
-  updatePost(id: number, postData: any): Observable<any> {
-
-    const url = `${this.url}/ ${id}`;
-    return this.http.put<any>(url, postData);
-
-  }
-
-
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error("Xato bo'ldi", error.error.message);
-    }
-    else {
-      console.error("Serverda xatolik bo'ldi", `${error.status}` + `Xabar ${error.error}`);
-    }
-
-return throwError("Xatolik ro'y berdi qaytadan urinib ko'ring")
-
-  }
-
 
 
 

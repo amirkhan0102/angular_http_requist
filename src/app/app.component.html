@@ -1,15 +1,17 @@
-<!-- <button (click)="createPost()"> YAngi post yaratish</button>
-<button (click)="updatePost(1)">Post o'zgartirildi</button>
-<button (click)="deletePost(1)">Post o'chirildi</button> -->
+
+<ul>
+
+<li>
+    <a routerLink="/register">Register</a>
+</li>
+<li>
+    <a routerLink="/login">Login</a>
+</li>
+<li>
+    <a routerLink="/user">User</a>
+</li>
+</ul>
 
 
-<div *ngIf="data">
-{{data| json}}
 
-
-<div>{{errorMessage}}</div>
-
-
-
-
-</div>
+<router-outlet></router-outlet>
